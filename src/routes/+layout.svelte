@@ -24,10 +24,21 @@
     </div>
 
     <slot />
+
+    <div class="pinned-bottom">
+        <div class="code">
+            <p>
+                Source code: <a
+                    target="_blank"
+                    href="https://github.com/aurorasean/blender-52">GitHub</a
+                >
+            </p>
+        </div>
+    </div>
 </div>
 
 <style>
-    button{
+    button {
         background: hsl(221, 45%, 27%);
         color: hsl(222, 45%, 95%);
         padding: 0.5rem 1rem;
