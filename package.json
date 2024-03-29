@@ -3,10 +3,14 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build",
+		"dev": "yarn prepare && vite dev --port 3030",
+		"prepare": "npm run smui-theme-light && npm run smui-theme-dark",
+		"smui-theme-light": "smui-theme compile static/smui.css -i src/theme",
+		"smui-theme-dark": "smui-theme compile static/smui-dark.css -i src/theme/dark",
+		"build": "npm run prepare && vite build",
 		"preview": "vite preview",
 		"test": "playwright test",
+		"test:debug": "playwright test --debug",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "eslint ."
@@ -21,11 +25,20 @@
 		"@typescript-eslint/parser": "^7.0.0",
 		"eslint": "^8.56.0",
 		"eslint-plugin-svelte": "^2.35.1",
+		"smui-theme": "^7.0.0-beta.18",
 		"svelte": "^4.2.7",
 		"svelte-check": "^3.6.0",
 		"tslib": "^2.4.1",
 		"typescript": "^5.0.0",
 		"vite": "^5.0.3"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"@material/typography": "^14.0.0",
+		"@smui/button": "^7.0.0-beta.18",
+		"@smui/card": "^7.0.0-beta.18",
+		"@smui/icon-button": "^7.0.0-beta.18",
+		"@smui/top-app-bar": "^7.0.0-beta.18",
+		"@sveltejs/adapter-static": "^3.0.1"
+	}
 }

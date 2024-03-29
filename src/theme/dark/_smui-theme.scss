@@ -1,0 +1,36 @@
+@use 'sass:color';
+
+@use '@material/theme/color-palette';
+// Svelte Colors! (Dark Theme)
+@use '@material/theme/index' as theme with ($primary: #F4792B,
+  $secondary: color.scale(#54433A, $whiteness: -10%),
+  $surface: color.adjust(color-palette.$grey-900, $blue: +4),
+  $background: color.scale(hsl(220deg 11.69% 15.1%), $whiteness: -30%),
+  $error: color-palette.$red-700);
+
+@use '@material/typography/mdc-typography';
+@use '@material/typography/mixins' as typography;
+
+html,
+body {
+  background-color: color.scale(hsl(220deg 11.69% 15.1%), $whiteness: -30%);
+  color: theme.$on-surface;
+}
+
+.pinned {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 99;
+  padding-bottom: 1rem;
+  background-color: color.scale(hsl(220deg 11.69% 15.1%), $whiteness: -30%);
+}
+
+a {
+  color: #008268;
+}
+
+a:visited {
+  color: color.scale(#008268, $lightness: -35%);
+}
