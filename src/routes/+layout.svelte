@@ -1,4 +1,12 @@
 <script lang="ts">
+    import { boolStore } from "$lib/store"; // Import the missing boolStore
+    const onClick = () => {
+        console.log("clicked");
+        boolStore.set(true); // Use the imported boolStore
+        setTimeout(() => {
+            boolStore.set(false);
+        }, 100);
+    };
 </script>
 
 <div class="top-app-bar-container mdc-typography--body1">
@@ -12,12 +20,25 @@
                 > to read what it is about
             </p>
         </div>
+        <button on:click={onClick}>Current week</button>
     </div>
 
     <slot />
 </div>
 
 <style>
+    button{
+        background: hsl(221, 45%, 27%);
+        color: hsl(222, 45%, 95%);
+        padding: 0.5rem 1rem;
+        margin-top: 1rem;
+        border: none;
+        border-radius: 0.2rem;
+        cursor: pointer;
+    }
+    button:hover {
+        background: hsl(222, 59%, 57%);
+    }
     .center {
         display: flex;
         flex-direction: column;
@@ -45,4 +66,3 @@
         overflow: hidden;
     }
 </style>
-

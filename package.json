@@ -8,6 +8,7 @@
 		"smui-theme-light": "smui-theme compile static/smui.css -i src/theme",
 		"smui-theme-dark": "smui-theme compile static/smui-dark.css -i src/theme/dark",
 		"build": "npm run prepare && vite build",
+	"deploy":"yarn build && firebase deploy",
 		"preview": "vite preview",
 		"test": "playwright test",
 		"test:debug": "playwright test --debug",

@@ -8,6 +8,10 @@
         element.addEventListener("mousemove", (e) => {
             rotateElement(e, element);
         });
+        element.addEventListener("touchstart", (e) => {
+            console.log({e})
+            rotateElement(e, element);
+        });
     });
     onDestroy(() => {
         if (element)

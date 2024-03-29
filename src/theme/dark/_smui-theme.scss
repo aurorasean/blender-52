@@ -18,11 +18,14 @@ body {
 }
 
 .pinned {
+
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 99;
+  padding-top: 1rem;
+  
   padding-bottom: 1rem;
   background-color: color.scale(hsl(220deg 11.69% 15.1%), $whiteness: -30%);
 }

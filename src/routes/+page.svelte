@@ -1,6 +1,16 @@
 <script lang="ts">
     import CardHover from "$lib/Card.svelte";
     import { onMount } from "svelte";
+    import { boolStore } from "$lib/store"; // Import the missing boolStore
+
+    boolStore.subscribe((value) => {
+        if (value) {
+            elements[currentWeek - 1].scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+            });
+        }
+    });
 
     // get current week of the year
     const currentWeek = Math.ceil(
@@ -78,31 +88,34 @@
     });
 </script>
 
-<div class="card-container">
-    {#each themes as theme, index}
-        <!-- content here -->
+<div>
+    <button class="button-pinned">Current week?</button>
+    <div class="card-container">
+        {#each themes as theme, index}
+            <!-- content here -->
 
-        <div class="card-size" bind:this={elements[index]}>
-            <div style="margin: 2rem;">
-                <CardHover
-                    active={theme.active}
-                    current={theme.week === currentWeek}
-                >
-                    <div class="card-content" data-active={theme.active}>
-                        <h2 class="card-title">
-                            W{theme.week} <br />
-                            {theme.theme}
-                        </h2>
-                        <img
-                            class="card-image"
-                            alt={theme.theme}
-                            src={`./images/${theme.week}.png`}
-                        />
-                    </div>
-                </CardHover>
+            <div class="card-size" bind:this={elements[index]}>
+                <div style="margin: 2rem;">
+                    <CardHover
+                        active={theme.active}
+                        current={theme.week === currentWeek}
+                    >
+                        <div class="card-content" data-active={theme.active}>
+                            <h2 class="card-title">
+                                W{theme.week} <br />
+                                {theme.theme}
+                            </h2>
+                            <img
+                                class="card-image"
+                                alt={theme.theme}
+                                src={`./images/${theme.week}.png`}
+                            />
+                        </div>
+                    </CardHover>
+                </div>
             </div>
-        </div>
-    {/each}
+        {/each}
+    </div>
 </div>
 
 <style>
@@ -130,6 +143,8 @@
         display: flex;
         flex-wrap: wrap;
         display: inline-block;
+        padding-top: 8rem;
+        justify-content: center;
     }
     .card-title {
         position: absolute;
