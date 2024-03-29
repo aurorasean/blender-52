@@ -1,0 +1,24 @@
+{
+    "name": "Blender 52",
+    "short_name": "Blender52",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#181e2b",
+    "lang": "en",
+    "scope": "./",
+    "description": "Blender 52 inspire",
+    "theme_color": "#181e2b",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "sizes": "192x192",
+            "src": "/logo512",
+            "type": "image/png"
+        },
+        {
+            "sizes": "512x512",
+            "src": "/logo512",
+            "type": "image/png"
+        }
+    ]
+}
