@@ -3,12 +3,12 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"dev": "yarn prepare && vite dev --port 3030",
+		"dev": "npm run prepare && vite dev --port 3030",
 		"prepare": "npm run smui-theme-light && npm run smui-theme-dark",
 		"smui-theme-light": "smui-theme compile static/smui.css -i src/theme",
 		"smui-theme-dark": "smui-theme compile static/smui-dark.css -i src/theme/dark",
 		"build": "npm run prepare && vite build",
-	"deploy":"yarn build && firebase deploy",
+		"deploy": "yarn build && firebase deploy",
 		"preview": "vite preview",
 		"test": "playwright test",
 		"test:debug": "playwright test --debug",
@@ -40,6 +40,7 @@
 		"@smui/card": "^7.0.0-beta.18",
 		"@smui/icon-button": "^7.0.0-beta.18",
 		"@smui/top-app-bar": "^7.0.0-beta.18",
-		"@sveltejs/adapter-static": "^3.0.1"
+		"@sveltejs/adapter-static": "^3.0.1",
+		"svelte-carousel": "^1.0.25"
 	}
 }

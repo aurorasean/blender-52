@@ -12,14 +12,6 @@
 <div class="top-app-bar-container mdc-typography--body1">
     <div class="pinned center">
         <h1 class="title">Blender 52 Inspiration</h1>
-        <div class="code">
-            <h2>Be inspired!</h2>
-            <p>
-                Visit <a target="_blank" href="http://blender52.com/"
-                    >blender52</a
-                > to read what it is about
-            </p>
-        </div>
         <button on:click={onClick}>Current week</button>
     </div>
 
@@ -27,12 +19,10 @@
 
     <div class="pinned-bottom">
         <div class="code">
-            <p>
-                Source code: <a
-                    target="_blank"
-                    href="https://github.com/aurorasean/blender-52">GitHub</a
-                >
-            </p>
+            Source code: <a
+                target="_blank"
+                href="https://github.com/aurorasean/blender-52">GitHub</a
+            >
         </div>
     </div>
 </div>

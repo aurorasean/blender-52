@@ -1,124 +1,119 @@
 <script lang="ts">
     import CardHover from "$lib/Card.svelte";
     import { onMount } from "svelte";
-    import { boolStore } from "$lib/store"; // Import the missing boolStore
+    import { boolStore } from "$lib/store";
+    import { data } from "$lib/data";
 
-    boolStore.subscribe((value) => {
-        if (value) {
-            elements[currentWeek - 1].scrollIntoView({
-                behavior: "smooth",
-                block: "center",
-            });
-        }
-    });
+    // @ts-ignore
+    import Carousel from "svelte-carousel";
 
-    // get current week of the year
+    import { browser } from "$app/environment";
+
+    let carousel: any;
+    const handlePrevClick = () => {
+        carousel.goToPrev();
+    };
+    const handleNextClick = () => {
+        carousel.goToNext();
+    };
+
     const currentWeek = Math.ceil(
         (new Date().getTime() -
             new Date(new Date().getFullYear(), 0, 1).getTime()) /
             (7 * 24 * 60 * 60 * 1000),
     );
-    const themes = [
-        { week: 1, theme: "Dreams" },
-        { week: 14, theme: "Futuristic " },
-        { week: 27, theme: "Sci-Fi " },
-        { week: 40, theme: "Anime" },
-        { week: 2, theme: "Geek " },
-        { week: 15, theme: "Video Games " },
-        { week: 28, theme: "Hard Surface " },
-        { week: 41, theme: "Loop" },
-        { week: 3, theme: "Neon " },
-        { week: 16, theme: "Lost " },
-        { week: 29, theme: "Vortex " },
-        { week: 42, theme: "Cubes" },
-        { week: 4, theme: "Robots " },
-        { week: 17, theme: "Launch " },
-        { week: 30, theme: "Music " },
-        { week: 43, theme: "Low Poly" },
-        { week: 5, theme: "Splash " },
-        { week: 18, theme: "Mechanical" },
-        { week: 31, theme: "Float" },
-        { week: 44, theme: "Dark" },
-        { week: 6, theme: "Garden " },
-        { week: 19, theme: "Organic " },
-        { week: 32, theme: "Radiant " },
-        { week: 45, theme: "Transport" },
-        { week: 7, theme: "Asymmetry " },
-        { week: 20, theme: "Speed " },
-        { week: 33, theme: "Weapon " },
-        { week: 46, theme: "Spin" },
-        { week: 8, theme: "Symetry" },
-        { week: 21, theme: "Tangled " },
-        { week: 34, theme: "Fragment " },
-        { week: 47, theme: "High" },
-        { week: 9, theme: "Junk" },
-        { week: 22, theme: "Isolation" },
-        { week: 35, theme: "Abstract" },
-        { week: 48, theme: "Imaginary" },
-        { week: 10, theme: "Illusion " },
-        { week: 23, theme: "Job" },
-        { week: 36, theme: "Sculpting" },
-        { week: 49, theme: "Danger" },
-        { week: 11, theme: "Wide Angle" },
-        { week: 24, theme: "Entrance " },
-        { week: 37, theme: "Wild" },
-        { week: 50, theme: "Digital" },
-        { week: 12, theme: "Cosmic " },
-        { week: 25, theme: "Empty Spaces" },
-        { week: 38, theme: "Cold " },
-        { week: 51, theme: "Power" },
-        { week: 13, theme: "Horror " },
-        { week: 26, theme: "Mirrors " },
-        { week: 39, theme: "Beasts " },
-        { week: 52, theme: "Shrink" },
-    ]
+    let currentSelectedYear = new Date().getFullYear().toString();
+
+    boolStore.subscribe((value) => {
+        if (value && carousel) {
+            carousel.goTo(currentWeek - 1);
+        }
+    });
+    const themes = data[currentSelectedYear]
         .map((x) => ({ ...x, active: x.week >= currentWeek }))
         .sort((a, b) => a.week - b.week);
 
-    // @ts-ignore, it will be fine
-    let elements: HTMLElement[] = themes.map((x) => undefined);
-
     onMount(() => {
-        if (elements[currentWeek - 1]) {
-            elements[currentWeek - 1].scrollIntoView({
-                behavior: "smooth",
-                block: "center",
-            });
-        }
+        setTimeout(() => {
+            boolStore.set(true);
+            setTimeout(() => {
+                boolStore.set(false);
+            }, 100);
+        }, 100);
     });
 </script>
 
 <div>
-    <button class="button-pinned">Current week?</button>
     <div class="card-container">
-        {#each themes as theme, index}
-            <!-- content here -->
-
-            <div class="card-size" bind:this={elements[index]}>
-                <div style="margin: 2rem;">
-                    <CardHover
-                        active={theme.active}
-                        current={theme.week === currentWeek}
+        {#if browser}
+            <div class="carousel2">
+                <Carousel
+                    bind:this={carousel}
+                    let:showPrevPage
+                    let:showNextPage
+                >
+                    <button slot="prev" on:click={handlePrevClick}>{"<"}</button
                     >
-                        <div class="card-content" data-active={theme.active}>
-                            <h2 class="card-title">
-                                W{theme.week} <br />
-                                {theme.theme}
-                            </h2>
-                            <img
-                                class="card-image"
-                                alt={theme.theme}
-                                src={`./images/${theme.week}.png`}
-                            />
+                    <button slot="next" on:click={handleNextClick}>{">"}</button
+                    >
+                    {#each themes as theme, index}
+                        <div class="card-size">
+                            <div style="margin: 2rem;">
+                                <CardHover
+                                    active={theme.active}
+                                    current={theme.week === currentWeek}
+                                >
+                                    <div
+                                        class="card-content"
+                                        data-active={theme.active}
+                                    >
+                                        <h2 class="card-title">
+                                            W{theme.week} <br />
+                                            {theme.theme}
+                                        </h2>
+                                        <img
+                                            class="card-image"
+                                            alt={theme.theme}
+                                            src={`./images/${currentSelectedYear}/${theme.week}.png`}
+                                        />
+                                    </div>
+                                </CardHover>
+                            </div>
                         </div>
-                    </CardHover>
-                </div>
+                    {/each}
+                </Carousel>
             </div>
-        {/each}
+        {/if}
     </div>
 </div>
 
 <style>
+    button {
+        background: hsl(221, 45%, 27%);
+        color: hsl(222, 45%, 95%);
+        padding: 0.5rem 1rem;
+        margin-top: 1rem;
+        border: none;
+        border-radius: 0.2rem;
+        cursor: pointer;
+    }
+    @media (min-width: 730px) {
+        .carousel2 {
+            width: 80vw;
+            max-width: 25rem;
+        }
+    }
+    @media (min-width: 1024px) {
+        .carousel2 {
+            max-width: 25rem;
+        }
+    }
+    @media (max-width: 730px) {
+        .carousel2 {
+            width: 95vw;
+            max-width: 25rem;
+        }
+    }
     .card-content {
         display: flex;
         align-items: center;
@@ -140,11 +135,11 @@
         border-radius: 0.2rem;
     }
     .card-container {
-        display: flex;
-        flex-wrap: wrap;
-        display: inline-block;
         padding-top: 8rem;
         justify-content: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
     .card-title {
         position: absolute;
@@ -165,10 +160,5 @@
     .card-container {
         display: flex;
         flex-wrap: wrap;
-    }
-
-    .card-size {
-        width: 20rem;
-        padding: 0.5rem;
     }
 </style>
