@@ -1,6 +1,6 @@
 {
 	"name": "blender-52",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"private": true,
 	"scripts": {
 		"dev": "npm run prepare && vite dev --port 3030",
