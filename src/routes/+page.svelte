@@ -26,7 +26,7 @@
 
     boolStore.subscribe((value) => {
         if (value && carousel) {
-            carousel.goTo(currentWeek - 1);
+            carousel.goTo(currentWeek);
         }
     });
     const themes = data[currentSelectedYear]
